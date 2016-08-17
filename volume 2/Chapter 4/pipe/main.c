@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -6,8 +7,8 @@
 void server(int readfd, int writefd) {
 	char buff[100];
 	int len = read(readfd, buff, 100);
-	filename[len] = 0;
-	fputs(filename, stdout);
+	buff[len] = 0;
+	fputs(buff, stdout);
 	write(writefd, buff, len);
 }
 
