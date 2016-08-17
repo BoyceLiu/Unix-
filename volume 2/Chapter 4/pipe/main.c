@@ -4,24 +4,19 @@
 #include <sys/types.h>
 
 void server(int readfd, int writefd) {
-	char filename[100];
-	char buff[1000];
-	int len = read(readfd, filename, 100);
+	char buff[100];
+	int len = read(readfd, buff, 100);
 	filename[len] = 0;
 	fputs(filename, stdout);
-	write(writefd, "response", 9);
+	write(writefd, buff, len);
 }
 
 void client(int readfd, int writefd) {
-	char filename[100];
-	char buff[1000];
-	fgets(filename, 100, stdin);
-	int len = strlen(filename);
-	if (filename[len-1] == '\n') {
-		len--;
-	}
-	write(writefd, filename, len);
-	len = read(readfd, buff, 1000);
+	char buff[100];
+	fgets(buff, 100, stdin);
+	int len = strlen(buff);
+	write(writefd, buff, len);
+	len = read(readfd, buff, 100);
 	buff[len] = '\0';
 	fputs(buff, stdout);
 }
